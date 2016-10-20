@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Clean pcre and httpd sources
+rm -rf /tmp/pcre-8.38
+rm -rf /tmp/httpd-2.4.23
+
 # Clean apt-get cache
 apt-get clean
 
