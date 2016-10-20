@@ -3,7 +3,9 @@
     "ssh_username": "vagrant",
     "ssh_password": "vagrant",
     "atlas_username": "fische",
-    "atlas_name": "co876"
+    "atlas_name": "co876",
+    "token": "{{env `ATLAS_TOKEN`}}",
+    "version": "",
   },
   "push": {
     "name": "{{user `atlas_username`}}/{{user `atlas_name`}}",
@@ -26,12 +28,15 @@
 
       "http_directory": "http",
       "boot_command": [
-        "<enter><wait><f6><esc>",
-        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-        "debian-installer=en_US auto locale=en_US kbd-chooser/method=fr ",
-        "hostname={{ .Name }} ",
-        "fb=false debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=FR keyboard-configuration/variant=FR console-setup/ask_detect=false ",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=fr <wait>",
+        "hostname={{ .Name }} <wait>",
+        "fb=false debconf/frontend=noninteractive <wait>",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=FR keyboard-configuration/variant=FR console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz --",
         "<enter><wait>"
       ],
@@ -43,7 +48,7 @@
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
       "scripts": [
         "scripts/setup.sh",
         "scripts/pcre.sh",
@@ -57,17 +62,13 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "keep_input_artifact": false
+      "output": "out_{{.Provider}}.box"
     },
     {
-        "type": "atlas",
-        "only": ["virtualbox-iso"],
-        "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
-        "artifact_type": "co876.box",
-        "metadata": {
-            "provider": "virtualbox",
-            "version": "0.0.1"
-        }
+      "type": "vagrant-cloud",
+      "box_tag": "fische/co876",
+      "access_token": "{{user `token`}}",
+      "version": "{{user `version`}}"
     }
   ]
 }
