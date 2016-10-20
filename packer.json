@@ -60,15 +60,17 @@
     }
   ],
   "post-processors": [
-    {
-      "type": "vagrant",
-      "output": "out_{{.Provider}}.box"
-    },
-    {
-      "type": "vagrant-cloud",
-      "box_tag": "{{user `atlas_username`}}/{{user `atlas_name`}}",
-      "access_token": "{{user `token`}}",
-      "version": "{{user `version`}}"
-    }
+    [
+      {
+        "output": "{{.Provider}}-co876-{{user `version`}}.box",
+        "type": "vagrant"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "{{user `atlas_username`}}/{{user `atlas_name`}}",
+        "access_token": "{{user `token`}}",
+        "version": "{{user `version`}}"
+      }
+    ]
   ]
 }
