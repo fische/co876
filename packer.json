@@ -5,7 +5,7 @@
     "atlas_username": "fische",
     "atlas_name": "co876",
     "token": "{{env `ATLAS_TOKEN`}}",
-    "version": ""
+    "version": "0.1"
   },
   "push": {
     "name": "{{user `atlas_username`}}/{{user `atlas_name`}}",
