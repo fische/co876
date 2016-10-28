@@ -5,7 +5,7 @@
     "atlas_username": "fische",
     "atlas_name": "co876",
     "token": "{{env `ATLAS_TOKEN`}}",
-    "version": "0.1"
+    "version": "0.2"
   },
   "push": {
     "name": "{{user `atlas_username`}}/{{user `atlas_name`}}",
@@ -47,24 +47,53 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "files/",
+      "destination": "/tmp"
+    },
+    {
       "type": "shell",
       "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
       "scripts": [
-        "scripts/setup.sh",
-        "scripts/pcre.sh",
-        "scripts/apache.sh",
+        "scripts/base.sh",
         "scripts/vagrant.sh",
-        "scripts/virtualbox.sh",
-        "scripts/cleanup.sh"
+        "scripts/install/apache.sh",
+        "scripts/setup/apache.sh",
+        "scripts/install/ldap.sh",
+        "scripts/setup/ldap.sh"
+      ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+      "scripts": [
+        "scripts/utils/add_apache_user.sh"
       ],
+      "environment_vars": [
+        "USERNAME={{user `ssh_username`}}",
+        "PASSWORD={{user `ssh_password`}}"
+      ],
+      "remote_folder": "/home/vagrant",
+      "skip_clean": true
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+      "script": "scripts/virtualbox.sh",
       "only": ["virtualbox-iso"]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+      "script": "scripts/cleanup.sh"
     }
   ],
   "post-processors": [
     [
       {
-        "output": "{{.Provider}}-co876-{{user `version`}}.box",
-        "type": "vagrant"
+        "output": "builds/{{.Provider}}-co876-{{user `version`}}.box",
+        "type": "vagrant",
+        "vagrantfile_template": "vagrantfile.tpl"
       },
       {
         "type": "vagrant-cloud",
