@@ -22,7 +22,7 @@ tar -xzf /tmp/ldap.tar.gz -C /tmp
 
 # Install OpenLDAP
 cd /tmp/openldap-2.4.44
-env CPPFLAGS=-I/usr/local/bdb5/include LDFLAGS=-L/usr/local/bdb5/lib LD_LIBRARY_PATH=/usr/local/bdb5/lib ./configure --prefix=/usr/local/openldap
+CPPFLAGS=-I/usr/local/bdb5/include LDFLAGS=-L/usr/local/bdb5/lib LD_LIBRARY_PATH=/usr/local/bdb5/lib ./configure --prefix=/usr/local/openldap
 make depend
 make
 make install

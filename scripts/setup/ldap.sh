@@ -4,10 +4,10 @@
 cp -vr /tmp/openldap /usr/local
 
 # Check config
-env LD_LIBRARY_PATH=/usr/local/bdb5/lib /usr/local/openldap/sbin/slaptest -u
+LD_LIBRARY_PATH=/usr/local/bdb5/lib /usr/local/openldap/sbin/slaptest -u
 
 # Start OpenLDAP server
-sudo env LD_LIBRARY_PATH=/usr/local/bdb5/lib /usr/local/openldap/libexec/slapd &
+LD_LIBRARY_PATH=/usr/local/bdb5/lib /usr/local/openldap/libexec/slapd && sleep 1
 
 # Add entries
 /usr/local/openldap/bin/ldapadd -f /tmp/entries.ldif -x -D "cn=Manager,c=gb" -w secret
