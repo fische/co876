@@ -65,15 +65,13 @@
     },
     {
       "type": "shell",
-      "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
-      "scripts": [
-        "scripts/utils/add_apache_user.sh"
-      ],
       "environment_vars": [
-        "USERNAME={{user `ssh_username`}}",
+        "LOGIN={{user `ssh_username`}}",
         "PASSWORD={{user `ssh_password`}}"
       ],
-      "remote_folder": "/home/vagrant",
+      "execute_command": "echo '{{user `ssh_password`}}' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'",
+      "script": "scripts/utils/add_apache_user.sh",
+      "remote_path": "/home/vagrant/add_apache_user.sh",
       "skip_clean": true
     },
     {

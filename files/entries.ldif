@@ -1,0 +1,58 @@
+dn: c=gb
+objectClass: country
+
+dn: o=University of Kent,c=gb
+objectClass: organization
+
+dn: ou=MSc ISB,o=University of Kent,c=gb
+objectClass: organizationalUnit
+
+dn: cn=Victor Schuber,ou=MSc ISB,o=University of Kent,c=gb
+sn: Schubert
+uid: schube
+permisRole: student
+userPassword: schube
+objectClass: organizationalPerson
+objectClass: pkiUser
+objectClass: pmiUser
+objectClass: uidObject
+
+dn: cn=Romain Vermot,ou=MSc ISB,o=University of Kent,c=gb
+sn: Vermot
+uid: vermot
+permisRole: student
+userPassword: vermot
+objectClass: organizationalPerson
+objectClass: pkiUser
+objectClass: pmiUser
+objectClass: uidObject
+
+dn: cn=Maxime Junger,ou=MSc ISB,o=University of Kent,c=gb
+sn: Junger
+uid: junger
+permisRole: student
+userPassword: junger
+objectClass: organizationalPerson
+objectClass: pkiUser
+objectClass: pmiUser
+objectClass: uidObject
+
+dn: cn=Maxime Fischer,ou=MSc ISB,o=University of Kent,c=gb
+sn: Fischer
+uid: fische
+permisRole: student
+userPassword: fische
+objectClass: organizationalPerson
+objectClass: pkiUser
+objectClass: pmiUser
+objectClass: uidObject
+
+dn: cn=Maxime Vercheval,ou=MSc ISB,o=University of Kent,c=gb
+sn: Vercheval
+uid: verche
+permisRole: student
+userPassword: verche
+objectClass: organizationalPerson
+objectClass: pkiUser
+objectClass: pmiUser
+objectClass: uidObject
